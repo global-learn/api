@@ -289,6 +289,14 @@ Uploaded files:
 
 # Development Workflow
 
+```
+[локально]                    [удалённо]
+  │                               │
+  ▼                               ▼
+pre-commit hook  →  push  →  CI pipeline  →  merge  →  CD pipeline
+(husky + lint-staged)
+```
+
 ## Create new migration
 
 ```bash

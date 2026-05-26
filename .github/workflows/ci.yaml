@@ -1,0 +1,9 @@
+name: GitHub CI
+
+on: [push]
+
+jobs:
+  Meeting-GitHub-Actions:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo "🌏 Hello World!"
