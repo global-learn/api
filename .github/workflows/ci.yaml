@@ -1,7 +1,9 @@
 name: GitHub CI
 run-name: "${{github.actor}} is running CI"
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   Meeting-GitHub-Actions:
