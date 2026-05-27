@@ -1,21 +1,39 @@
-name: GitHub CI
-run-name: "${{github.actor}} is running CI"
+name: API pipeline
+run-name: ${{github.actor}} is running CI
 
 on:
   push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  Meeting-GitHub-Actions:
+  test-and-lint:
     runs-on: ubuntu-22.04
     steps:
-      - run: echo "🌏 Hello World!"
-      - run: echo "☄️ The name of the branch is ${{github.ref}}"
-      - name: "Check out repository code"
-        uses: actions/checkout@v6
-      - run: echo "😍 The ${{github.repository}} has been cloned to the runner"
-      - run: echo "🤢 The workflow is now ready for test your code on the runner"
-      - name: "List files in the repository"
-        run: |
-          ls ${{github.workspace}}
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Run linter
+        run: pnpm lint
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
       - run: echo "💯 This job's status is ${{job.status}}"

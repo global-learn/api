@@ -1,0 +1,26 @@
+services:
+  postgres:
+    ports:
+      - "5434:5432"
+
+  redis-insight:
+    image: redis/redisinsight:latest
+    restart: unless-stopped
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    ports:
+      - "5540:5540"
+    volumes:
+      - redis-insight_data:/data
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  redis-insight_data:
