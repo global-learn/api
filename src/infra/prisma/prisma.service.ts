@@ -5,7 +5,7 @@ import { EnvService } from '@/infra/env/env.service';
 
 @Injectable()
 export class PrismaService extends PrismaClient {
-  constructor(private readonly envService: EnvService) {
+  constructor(envService: EnvService) {
     const adapter = new PrismaPg({
       connectionString: envService.get('DATABASE_URL'),
     });
