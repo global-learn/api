@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:18.1-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:8.6.0-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
