@@ -12,36 +12,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-and-lint:
+  lint-and-unit:
     runs-on: ubuntu-22.04
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d
-        with:
-          version: 11
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.15.0
-          cache: pnpm
-
-      - name: Install deps
-        run: pnpm install --frozen-lockfile
-        
-      - name: Generate Prisma Client
-        run: pnpm prisma generate
-
-      - name: Run linter
+      - name: Run Linter
         run: pnpm lint
 
-      - name: Run tests
-        run: pnpm test
-
-      - name: Build
+      - name: Run build
         run: pnpm build
 
-      - run: echo "💯 This job's status is ${{job.status}}"
+      - name: Run unit-tests
+        run: pnpm test
+
+      - run: echo "💯 lint-and-unit job's status is ${{job.status}}"
