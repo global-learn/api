@@ -9,7 +9,7 @@ export abstract class Entity<EntityProps> {
   protected abstract _id: AggregateId;
   protected _props: EntityProps;
 
-  constructor({ id, props }: CreateEntityProps<EntityProps>) {
+  protected constructor({ id, props }: CreateEntityProps<EntityProps>) {
     this.id = id;
     this.props = props;
   }

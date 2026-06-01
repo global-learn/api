@@ -1,8 +1,8 @@
 import { PrismaService } from '@/infra/prisma/prisma.service';
-import { RepositoryPort } from '@/libs/application/repository.port';
+import { BaseRepositoryPort } from '@/libs/application/repository.port';
 import { RequestContextService } from '@/libs/application/context/app-request-context';
 
-export abstract class PrismaRepositoryBase implements RepositoryPort {
+export abstract class PrismaRepositoryBase implements BaseRepositoryPort {
   constructor(protected readonly prismaService: PrismaService) {}
 
   protected get db() {
